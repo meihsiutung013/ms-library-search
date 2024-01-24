@@ -25,4 +25,14 @@ public class AutorService implements IAutorService {
     public void insertAutor(String nombre) throws SQLException {
         autorRepository.insertAutor(nombre);
     }
+
+    @Override
+    public void updateAutor(int autorId, String nombre) throws SQLException {
+        autorRepository.updateAutor(autorId,nombre);
+    }
+
+    @Override
+    public void deleteAutor(int autorId) throws SQLException {
+        autorRepository.deleteAutor(autorId);
+    }
 }

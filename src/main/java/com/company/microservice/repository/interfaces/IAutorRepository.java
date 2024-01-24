@@ -9,4 +9,8 @@ public interface IAutorRepository {
     List<Autor> getAllAutores() throws SQLException;
 
     void insertAutor(String nombre) throws SQLException;
+
+    void updateAutor(int autorId, String nombre) throws SQLException;
+
+    void deleteAutor(int autorId) throws SQLException;
 }
