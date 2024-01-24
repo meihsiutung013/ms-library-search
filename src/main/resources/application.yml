@@ -14,15 +14,12 @@ spring:
   application:
     name: microservice
   datasource:
-    url: jdbc:h2:mem:testdb
-  jpa:
-    show-sql: true
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
-      settings:
-        web-allow-others: true
+    url: jdbc:mysql://roundhouse.proxy.rlwy.net:37965/railway
+    username: root
+    password: eGAgdAFCD5AGCcf-fG4F61B1d5bBG2cE
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    jpa:
+      show-sql: true
 
 ## Instance port
 server:

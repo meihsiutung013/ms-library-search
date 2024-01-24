@@ -19,6 +19,8 @@ public class MicroserviceApplication {
 		} catch (InterruptedException e) {
 			Thread.currentThread().interrupt();
 		}
+
+
 		SpringApplication.run(MicroserviceApplication.class, args);
 	}
 }
