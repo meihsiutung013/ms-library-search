@@ -3,6 +3,7 @@ package com.company.microservice.repository.implementation;
 import com.company.microservice.data.DatabaseConfig;
 import com.company.microservice.model.Libro;
 import com.company.microservice.repository.interfaces.ILibroRepository;
+import org.springframework.stereotype.Repository;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -11,6 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class LibroRepository implements ILibroRepository {
 
     private final Connection connection;
@@ -30,14 +32,36 @@ public class LibroRepository implements ILibroRepository {
                 libro.setAutId(resultSet.getInt("aut_id"));
                 libro.setCatId(resultSet.getInt("cat_id"));
                 libro.setLibNombre(resultSet.getString("lib_nombre"));
-                libro.setLibPrecioAlquiler(resultSet.getDouble("lib_precio_alquiler"));
-                libro.setLibAnioPublicacion(resultSet.getString("lib_anio_publicacion"));
+                libro.setLibPrecioAlquiler(resultSet.getDouble("lib_precioalquiler"));
+                libro.setLibAnioPublicacion(resultSet.getString("lib_aniopb"));
                 libro.setLibISBN(resultSet.getString("lib_isbn"));
                 libros.add(libro);
             }
         }
         return libros;
     }
+
+    @Override
+    public Libro getLibroById(int libId) throws SQLException {
+        try (CallableStatement callStmt = connection.prepareCall("{call sp_GetLibroById(?)}")) {
+            callStmt.setInt(1, libId);
+            ResultSet resultSet = callStmt.executeQuery();
+
+            if (resultSet.next()) {
+                Libro libro = new Libro();
+                libro.setLibId(resultSet.getInt("lib_id"));
+                libro.setAutId(resultSet.getInt("aut_id"));
+                libro.setCatId(resultSet.getInt("cat_id"));
+                libro.setLibNombre(resultSet.getString("lib_nombre"));
+                libro.setLibPrecioAlquiler(resultSet.getDouble("lib_precioalquiler"));
+                libro.setLibAnioPublicacion(resultSet.getString("lib_aniopb"));
+                libro.setLibISBN(resultSet.getString("lib_isbn"));
+                return libro;
+            }
+        }
+        return null;
+    }
+
 
     @Override
     public void insertLibro(Libro oLibroE) throws SQLException {

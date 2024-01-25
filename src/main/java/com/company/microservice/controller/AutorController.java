@@ -31,6 +31,22 @@ public class AutorController {
         }
     }
 
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Autor> getAutorById(@PathVariable int id) {
+        try {
+            Autor autor = autorService.getAutorById(id);
+            if (autor != null) {
+                return ResponseEntity.ok(autor);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).build();
+        }
+    }
+
     @PostMapping("/insertar")
     public ResponseEntity<String> insertAutor(@RequestBody Autor autor) {
         try {
@@ -63,6 +79,4 @@ public class AutorController {
             return ResponseEntity.status(500).build();
         }
     }
-
-
 }

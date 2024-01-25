@@ -3,13 +3,18 @@ package com.company.microservice.service.implementation;
 import com.company.microservice.model.Libro;
 import com.company.microservice.repository.interfaces.ILibroRepository;
 import com.company.microservice.service.interfaces.ILibroService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 
 import java.sql.SQLException;
 import java.util.List;
 
+@Service
 public class LibroService implements ILibroService {
     private final ILibroRepository libroRepository;
 
+    @Autowired
     public LibroService(ILibroRepository libroRepository) {
         this.libroRepository = libroRepository;
     }
@@ -17,6 +22,11 @@ public class LibroService implements ILibroService {
     @Override
     public List<Libro> getAllLibros() throws SQLException {
         return libroRepository.getAllLibros();
+    }
+
+    @Override
+    public Libro getLibroById(int id) throws SQLException {
+        return libroRepository.getLibroById(id);
     }
 
     @Override

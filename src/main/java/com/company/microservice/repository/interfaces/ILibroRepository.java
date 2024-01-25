@@ -9,6 +9,8 @@ public interface ILibroRepository {
 
     List<Libro> getAllLibros() throws SQLException;
 
+    Libro getLibroById(int libId) throws SQLException;
+
     void insertLibro(Libro oLibroE) throws SQLException;
 
     void updateLibro(int libId, Libro OLibroE) throws SQLException;

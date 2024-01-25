@@ -36,6 +36,21 @@ public class AutorRepository implements IAutorRepository {
     }
 
     @Override
+    public Autor getAutorById(int id) throws SQLException {
+        Autor autor = null;
+        try (CallableStatement callStmt = connection.prepareCall("{call sp_GetAutorById(?)}")) {
+            callStmt.setInt(1, id);
+            ResultSet resultSet = callStmt.executeQuery();
+            if (resultSet.next()) {
+                autor = new Autor();
+                autor.setId(resultSet.getInt("AUT_ID"));
+                autor.setNombre(resultSet.getString("AUT_NOMBRE"));
+            }
+        }
+        return autor;
+    }
+
+    @Override
     public void insertAutor(String nombre) throws SQLException {
         try (CallableStatement callStmt = connection.prepareCall("{call sp_InsertAutor(?)}")) {
             callStmt.setString(1, nombre);

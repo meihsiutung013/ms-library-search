@@ -1,12 +1,15 @@
 package com.company.microservice.service.interfaces;
 
 import com.company.microservice.model.Autor;
+import com.company.microservice.model.Libro;
 
 import java.sql.SQLException;
 import java.util.List;
 
 public interface IAutorService {
     List<Autor> getAllAutores() throws SQLException;
+
+    Autor getAutorById(int id) throws SQLException;
 
     void insertAutor(String nombre) throws SQLException;
 
