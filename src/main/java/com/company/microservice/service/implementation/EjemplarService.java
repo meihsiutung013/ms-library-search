@@ -21,16 +21,23 @@ public class EjemplarService implements IEjemplarService {
     public List<Ejemplar> getAllEjemplares() throws SQLException {
         return this.ejemplarRepository.getAllEjemplares();
     }
+
+    @Override
+    public void insertEjemplarProcedure(int libroId, boolean estado) throws SQLException {
+        ejemplarRepository.insertEjemplarProcedure(libroId, estado);
+    }
+
+    @Override
+    public void updateEjemplarProcedure(int ejemId, int libroId, boolean estado) throws SQLException {
+        ejemplarRepository.updateEjemplarProcedure(ejemId, libroId, estado);
+    }
 /*
     @Override
     public Ejemplar getEjemplarById(int id) throws SQLException {
         // Implementación de getEjemplarById
     }
 
-    @Override
-    public void insertEjemplar(Ejemplar ejemplar) throws SQLException {
-        // Implementación de insertEjemplar
-    }
+
 
     @Override
     public void updateEjemplar(Ejemplar ejemplar) throws SQLException {

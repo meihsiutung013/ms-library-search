@@ -8,10 +8,12 @@ import java.util.List;
 
 public interface IEjemplarRepository {
     List<Ejemplar> getAllEjemplares() throws SQLException;
+    void insertEjemplarProcedure(int libroId, boolean estado) throws SQLException;
+
+    void updateEjemplarProcedure(int ejemId, int libroId, boolean estado) throws SQLException;
 
     /*Ejemplar getEjemplarById(int id) throws SQLException;
 
-    void insertEjemplar(Ejemplar ejemplar) throws SQLException;
 
     void updateEjemplar(Ejemplar ejemplar) throws SQLException;
 
