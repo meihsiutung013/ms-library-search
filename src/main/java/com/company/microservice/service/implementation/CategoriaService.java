@@ -1,7 +1,6 @@
 package com.company.microservice.service.implementation;
 
 import com.company.microservice.model.Categoria;
-import com.company.microservice.repository.interfaces.IAutorRepository;
 import com.company.microservice.repository.interfaces.ICategoriaRepository;
 import com.company.microservice.service.interfaces.ICategoriaService;
 import org.springframework.stereotype.Service;

@@ -45,7 +45,7 @@ public class AutorRepository implements IAutorRepository {
 
     @Override
     public void deleteAutor(int autorId) throws SQLException {
-        try (CallableStatement callStmt = connection.prepareCall("{call sp_delete_autor(?)}")) {
+        try (CallableStatement callStmt = connection.prepareCall("{call sp_DeleteAutor(?)}")) {
             callStmt.setInt(1, autorId);
             callStmt.executeUpdate();
         }
@@ -53,7 +53,7 @@ public class AutorRepository implements IAutorRepository {
 
     @Override
     public void updateAutor(int autorId, String nombre) throws SQLException {
-        try (CallableStatement callStmt = connection.prepareCall("{call sp_update_autor(?, ?)}")) {
+        try (CallableStatement callStmt = connection.prepareCall("{call sp_UpdateAutor(?, ?)}")) {
             callStmt.setInt(1, autorId);
             callStmt.setString(2, nombre);
             callStmt.executeUpdate();

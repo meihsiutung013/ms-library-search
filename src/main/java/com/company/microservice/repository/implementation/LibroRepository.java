@@ -22,7 +22,7 @@ public class LibroRepository implements ILibroRepository {
     @Override
     public List<Libro> getAllLibros() throws SQLException {
         List<Libro> libros = new ArrayList<>();
-        try (CallableStatement callStmt = connection.prepareCall("{call sp_get_all_libros()}")) {
+        try (CallableStatement callStmt = connection.prepareCall("{call sp_GetAllLibros()}")) {
             ResultSet resultSet = callStmt.executeQuery();
             while (resultSet.next()) {
                 Libro libro = new Libro();
@@ -41,7 +41,7 @@ public class LibroRepository implements ILibroRepository {
 
     @Override
     public void insertLibro(Libro oLibroE) throws SQLException {
-        try (CallableStatement callStmt = connection.prepareCall("{call sp_insert_libro(?, ?, ?, ?, ?, ?)}")) {
+        try (CallableStatement callStmt = connection.prepareCall("{call sp_InsertLibro(?, ?, ?, ?, ?, ?)}")) {
             callStmt.setInt(1, oLibroE.getAutId());
             callStmt.setInt(2, oLibroE.getCatId());
             callStmt.setString(3, oLibroE.getLibNombre());
@@ -54,7 +54,7 @@ public class LibroRepository implements ILibroRepository {
 
     @Override
     public void updateLibro(int libId, Libro oLibroE) throws SQLException {
-        try (CallableStatement callStmt = connection.prepareCall("{call sp_update_libro(?, ?, ?, ?, ?, ?, ?)}")) {
+        try (CallableStatement callStmt = connection.prepareCall("{call sp_UpdateLibro(?, ?, ?, ?, ?, ?, ?)}")) {
             callStmt.setInt(1, libId);
             callStmt.setInt(2, oLibroE.getAutId());
             callStmt.setInt(3, oLibroE.getCatId());
@@ -68,7 +68,7 @@ public class LibroRepository implements ILibroRepository {
 
     @Override
     public void deleteLibro(int libId) throws SQLException {
-        try (CallableStatement callStmt = connection.prepareCall("{call sp_delete_libro(?)}")) {
+        try (CallableStatement callStmt = connection.prepareCall("{call sp_DeleteLibro(?)}")) {
             callStmt.setInt(1, libId);
             callStmt.executeUpdate();
         }
