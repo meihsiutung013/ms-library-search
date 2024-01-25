@@ -43,6 +43,16 @@ public class EjemplarRepository implements IEjemplarRepository {
             statement.execute();
         }
     }
+
+    @Override
+    public void updateEjemplarProcedure(int ejemId, int libroId, boolean estado) throws SQLException {
+        try (CallableStatement statement = connection.prepareCall("{call sp_UpdateEjemplar(?, ?, ?)}")) {
+            statement.setInt(1, ejemId);
+            statement.setInt(2, libroId);
+            statement.setBoolean(3, estado);
+            statement.execute();
+        }
+    }
     /*@Override
     public Ejemplar getEjemplarById(int id) throws SQLException {
         // Implementación de getEjemplarById

@@ -26,6 +26,11 @@ public class EjemplarService implements IEjemplarService {
     public void insertEjemplarProcedure(int libroId, boolean estado) throws SQLException {
         ejemplarRepository.insertEjemplarProcedure(libroId, estado);
     }
+
+    @Override
+    public void updateEjemplarProcedure(int ejemId, int libroId, boolean estado) throws SQLException {
+        ejemplarRepository.updateEjemplarProcedure(ejemId, libroId, estado);
+    }
 /*
     @Override
     public Ejemplar getEjemplarById(int id) throws SQLException {
