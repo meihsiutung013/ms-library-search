@@ -32,17 +32,23 @@ public class EjemplarRepository implements IEjemplarRepository {
                 ejemplares.add(ejemplar);
             }
         }
-        return ejemplares;    }
+        return ejemplares;
+    }
 
+    @Override
+    public void insertEjemplarProcedure(int libroId, boolean estado) throws SQLException {
+        try (CallableStatement statement = connection.prepareCall("{call sp_InsertEjemplar(?, ?)}")) {
+            statement.setInt(1, libroId);
+            statement.setBoolean(2, estado);
+            statement.execute();
+        }
+    }
     /*@Override
     public Ejemplar getEjemplarById(int id) throws SQLException {
         // Implementación de getEjemplarById
     }
 
-    @Override
-    public void insertEjemplar(Ejemplar ejemplar) throws SQLException {
-        // Implementación de insertEjemplar
-    }
+
 
     @Override
     public void updateEjemplar(Ejemplar ejemplar) throws SQLException {

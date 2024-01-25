@@ -2,6 +2,7 @@
 package com.company.microservice.controller;
 
 import com.company.microservice.model.Ejemplar;
+import com.company.microservice.request.InsertEjemplarRequest;
 import com.company.microservice.service.interfaces.IEjemplarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,17 @@ public class EjemplarController {
         try {
             List<Ejemplar> ejemplares = ejemplarService.getAllEjemplares();
             return ResponseEntity.ok(ejemplares);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).build();
+        }
+    }
+
+    @PostMapping("/insertarProcedure")
+    public ResponseEntity<String> insertarEjemplarProcedure(@RequestBody InsertEjemplarRequest request) {
+        try {
+            ejemplarService.insertEjemplarProcedure(request.getLibroId(), request.isEstado());
+            return ResponseEntity.ok("Ejemplar insertado correctamente");
         } catch (SQLException e) {
             e.printStackTrace();
             return ResponseEntity.status(500).build();
