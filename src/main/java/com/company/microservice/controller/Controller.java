@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/autores")
+@RequestMapping("/api/autor")
 public class Controller {
     private final IAutorService autorService;
 
