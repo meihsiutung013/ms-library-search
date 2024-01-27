@@ -1,6 +1,7 @@
 package com.company.microservice.repository.implementation;
 
 import com.company.microservice.data.DatabaseConfig;
+import com.company.microservice.model.Autor;
 import com.company.microservice.model.Categoria;
 import com.company.microservice.repository.interfaces.ICategoriaRepository;
 import org.springframework.stereotype.Repository;
@@ -34,6 +35,23 @@ public class CategoriaRepository implements ICategoriaRepository {
         }
         return categorias;
     }
+
+    @Override
+    public Categoria getCategoriaById(int id) throws SQLException{
+        Categoria categoria = null;
+        try (CallableStatement callStmt = connection.prepareCall("{call sp_GetCategoriById(?)}")) {
+            callStmt.setInt(1, id);
+            ResultSet resultSet = callStmt.executeQuery();
+            if (resultSet.next()) {
+
+                categoria = new Categoria();
+                categoria.setCatId(resultSet.getInt("CAT_ID"));
+                categoria.setCatNombre(resultSet.getString("CAT_NOMBRE"));
+            }
+        }
+        return categoria;
+    }
+
 
     @Override
     public void insertCategoria(String nombre) throws SQLException {

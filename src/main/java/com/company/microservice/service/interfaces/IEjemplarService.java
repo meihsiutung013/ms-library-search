@@ -7,14 +7,9 @@ import java.util.List;
 
 public interface IEjemplarService {
     List<Ejemplar> getAllEjemplares() throws SQLException;
-
-
-    void insertEjemplarProcedure(int libroId, boolean estado) throws SQLException;
-
-    void updateEjemplarProcedure(int ejemId, int libroId, boolean estado) throws SQLException;
-
-    /*
     Ejemplar getEjemplarById(int id) throws SQLException;
-    void updateEjemplar(Ejemplar ejemplar) throws SQLException;
-    void deleteEjemplar(int id) throws SQLException;*/
+    void insertEjemplarProcedure(int libroId, boolean estado) throws SQLException;
+    void updateEjemplarProcedure(int ejemId, int libroId, boolean estado) throws SQLException;
+    void deleteEjemplar(int ejemId) throws SQLException;
+
 }

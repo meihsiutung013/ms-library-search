@@ -1,4 +1,3 @@
-// EjemplarController.java
 package com.company.microservice.controller;
 
 import com.company.microservice.model.Ejemplar;
@@ -53,30 +52,16 @@ public class EjemplarController {
             return ResponseEntity.status(500).build();
         }
     }
-    /*
-    @DeleteMapping("/deleteEjemplar/{id}")
+
+    @DeleteMapping("/ejemplares/{id}")
     public ResponseEntity<String> deleteEjemplar(@PathVariable int id) {
         try {
             ejemplarService.deleteEjemplar(id);
             return ResponseEntity.ok("Ejemplar eliminado correctamente");
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(500).build();
         }
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Ejemplar> getEjemplarById(@PathVariable int id) {
-        try {
-            Ejemplar ejemplar = ejemplarService.getEjemplarById(id);
-            return ResponseEntity.ok(ejemplar);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return ResponseEntity.status(500).build();
-        }
-    }
-
-
-
-    */
 }

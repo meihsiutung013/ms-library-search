@@ -3,6 +3,7 @@ package com.company.microservice.repository.implementation;
 
 import com.company.microservice.data.DatabaseConfig;
 import com.company.microservice.model.Autor;
+import com.company.microservice.model.Categoria;
 import com.company.microservice.model.Ejemplar;
 import com.company.microservice.repository.interfaces.IEjemplarRepository;
 import org.springframework.stereotype.Repository;
@@ -35,6 +36,23 @@ public class EjemplarRepository implements IEjemplarRepository {
         return ejemplares;
     }
 
+
+    @Override
+    public Ejemplar getEjemplarById(int id) throws SQLException {
+        Ejemplar ejemplar = null;
+        try (CallableStatement callStmt = connection.prepareCall("{call sp_GetEjemplarById(?)}")) {
+            callStmt.setInt(1, id);
+            ResultSet resultSet = callStmt.executeQuery();
+            if (resultSet.next()) {
+                ejemplar = new Ejemplar();
+                ejemplar.setEjemId(resultSet.getInt("EJEM_ID"));
+                ejemplar.setEjemEstado(resultSet.getBoolean("EJEM_ESTADO"));
+                ejemplar.setLibId(resultSet.getInt("LIB_ID"));
+            }
+        }
+        return ejemplar;
+    }
+
     @Override
     public void insertEjemplarProcedure(int libroId, boolean estado) throws SQLException {
         try (CallableStatement statement = connection.prepareCall("{call sp_InsertEjemplar(?, ?)}")) {
@@ -53,22 +71,14 @@ public class EjemplarRepository implements IEjemplarRepository {
             statement.execute();
         }
     }
-    /*@Override
-    public Ejemplar getEjemplarById(int id) throws SQLException {
-        // Implementación de getEjemplarById
+
+    @Override
+    public void deleteEjemplar(int ejemId) throws SQLException {
+        try (CallableStatement statement = connection.prepareCall("{call sp_DeleteEjemplar(?)}")) {
+            statement.setInt(1, ejemId);
+            statement.execute();
+        }
     }
 
 
-
-    @Override
-    public void updateEjemplar(Ejemplar ejemplar) throws SQLException {
-        // Implementación de updateEjemplar
-    }
-
-    @Override
-    public void deleteEjemplar(int id) throws SQLException {
-        // Implementación de deleteEjemplar
-    }*/
-
-    // Otros métodos específicos para Ejemplar, si es necesario
 }

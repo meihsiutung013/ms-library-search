@@ -21,6 +21,10 @@ public class EjemplarService implements IEjemplarService {
     public List<Ejemplar> getAllEjemplares() throws SQLException {
         return this.ejemplarRepository.getAllEjemplares();
     }
+    @Override
+    public Ejemplar getEjemplarById(int id) throws SQLException {
+        return this.ejemplarRepository.getEjemplarById(id);
+    }
 
     @Override
     public void insertEjemplarProcedure(int libroId, boolean estado) throws SQLException {
@@ -30,6 +34,11 @@ public class EjemplarService implements IEjemplarService {
     @Override
     public void updateEjemplarProcedure(int ejemId, int libroId, boolean estado) throws SQLException {
         ejemplarRepository.updateEjemplarProcedure(ejemId, libroId, estado);
+    }
+
+    @Override
+    public void deleteEjemplar(int ejemId) throws SQLException {
+        ejemplarRepository.deleteEjemplar(ejemId);
     }
 /*
     @Override
