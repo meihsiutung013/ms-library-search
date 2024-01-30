@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -21,25 +22,18 @@ public class AutorController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Autor>> getAllAutores() {
+    public ResponseEntity<List<Autor>> getAllAutores(@RequestParam(required = false) Integer id) {
         try {
-            List<Autor> autores = autorService.getAllAutores();
-            return ResponseEntity.ok(autores);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return ResponseEntity.status(500).build();
-        }
-    }
-
-
-    @GetMapping("/{id}")
-    public ResponseEntity<Autor> getAutorById(@PathVariable int id) {
-        try {
-            Autor autor = autorService.getAutorById(id);
-            if (autor != null) {
-                return ResponseEntity.ok(autor);
+            if (id != null) {
+                Autor autor = autorService.getAutorById(id);
+                if (autor != null) {
+                    return ResponseEntity.ok(Collections.singletonList(autor));
+                } else {
+                    return ResponseEntity.notFound().build();
+                }
             } else {
-                return ResponseEntity.notFound().build();
+                List<Autor> autores = autorService.getAllAutores();
+                return ResponseEntity.ok(autores);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -47,7 +41,7 @@ public class AutorController {
         }
     }
 
-    @PostMapping("")
+    @PostMapping
     public ResponseEntity<String> insertAutor(@RequestBody Autor autor) {
         try {
             autorService.insertAutor(autor.getNombre());
