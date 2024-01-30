@@ -32,7 +32,7 @@ public class LibroController {
         }
     }
 
-    @PostMapping("/insertar")
+    @PostMapping("")
     public ResponseEntity<String> insertLibro(@RequestBody Libro libro) {
         try {
             libroService.insertLibro(libro);
@@ -58,7 +58,7 @@ public class LibroController {
         }
     }
 
-    @PutMapping("/actualizar/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<String> updateLibro(@PathVariable int id, @RequestBody Libro libro) {
         try {
             libroService.updateLibro(id, libro);
@@ -69,7 +69,7 @@ public class LibroController {
         }
     }
 
-    @DeleteMapping("/eliminar/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteLibro(@PathVariable int id) {
         try {
             libroService.deleteLibro(id);

@@ -31,7 +31,7 @@ public class EjemplarController {
         }
     }
 
-    @PostMapping("/insertEjemplar")
+    @PostMapping("")
     public ResponseEntity<String> insertEjemplarProcedure(@RequestBody InsertEjemplarRequest request) {
         try {
             ejemplarService.insertEjemplarProcedure(request.getLibroId(), request.isEstado());
@@ -42,7 +42,7 @@ public class EjemplarController {
         }
     }
 
-    @PutMapping("/updateProcedure")
+    @PutMapping("/{id}")
     public ResponseEntity<String> updateEjemplarProcedure(@RequestBody Ejemplar request) {
         try {
             ejemplarService.updateEjemplarProcedure(request.getEjemId(), request.getLibId(), request.isEjemEstado());
@@ -53,7 +53,7 @@ public class EjemplarController {
         }
     }
 
-    @DeleteMapping("/ejemplares/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteEjemplar(@PathVariable int id) {
         try {
             ejemplarService.deleteEjemplar(id);

@@ -47,7 +47,7 @@ public class AutorController {
         }
     }
 
-    @PostMapping("/insertar")
+    @PostMapping("")
     public ResponseEntity<String> insertAutor(@RequestBody Autor autor) {
         try {
             autorService.insertAutor(autor.getNombre());
@@ -58,7 +58,7 @@ public class AutorController {
         }
     }
 
-    @PutMapping("/actualizar/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<String> updateAutor(@PathVariable int id, @RequestBody Autor autor) {
         try {
             autorService.updateAutor(id, autor.getNombre());
@@ -69,7 +69,7 @@ public class AutorController {
         }
     }
 
-    @DeleteMapping("/eliminar/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteAutor(@PathVariable int id) {
         try {
             autorService.deleteAutor(id);

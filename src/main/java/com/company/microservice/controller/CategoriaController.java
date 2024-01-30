@@ -47,7 +47,7 @@ public class CategoriaController {
         }
     }
 
-    @PostMapping("/insertar")
+    @PostMapping("")
     public ResponseEntity<String> insertCategoria(@RequestBody Categoria categoria) {
         try {
             categoriaService.insertCategoria(categoria.getCatNombre());
@@ -58,7 +58,7 @@ public class CategoriaController {
         }
     }
 
-    @PutMapping("/actualizar/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<String> updateCategoria(@PathVariable int id, @RequestBody Categoria categoria) {
         try {
             categoriaService.updateCategoria(id, categoria.getCatNombre());
@@ -69,7 +69,7 @@ public class CategoriaController {
         }
     }
 
-    @DeleteMapping("/eliminar/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteCategoria(@PathVariable int id) {
         try {
             categoriaService.deleteCategoria(id);
