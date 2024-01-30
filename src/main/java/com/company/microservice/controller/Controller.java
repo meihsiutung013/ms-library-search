@@ -21,25 +21,4 @@ public class Controller {
         this.autorService = autorService;
     }
 
-    @GetMapping
-    public ResponseEntity<List<Autor>> getAllAutores() {
-        try {
-            List<Autor> autores = autorService.getAllAutores();
-            return ResponseEntity.ok(autores);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return ResponseEntity.status(500).build();
-        }
-    }
-
-    @GetMapping("/insertarAutor")
-    public ResponseEntity<String> insertAutor() {
-        try {
-            autorService.insertAutor("Nuevo Autor");
-            return ResponseEntity.ok("Autor insertado correctamente");
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return ResponseEntity.status(500).build();
-        }
-    }
 }
