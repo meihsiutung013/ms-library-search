@@ -16,4 +16,5 @@ public interface ILibroRepository {
     void updateLibro(int libId, Libro OLibroE) throws SQLException;
 
     void deleteLibro(int libId) throws SQLException;
+    List<Libro> searchLibros(String libNombre, Double libPrecioAlquiler, String libAnioPublicacion, String libISBN) throws SQLException;
 }

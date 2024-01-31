@@ -20,6 +20,11 @@ public class LibroService implements ILibroService {
     }
 
     @Override
+    public List<Libro> searchLibros(String libNombre, Double libPrecioAlquiler, String libAnioPublicacion, String libISBN) throws SQLException {
+        return libroRepository.searchLibros(libNombre, libPrecioAlquiler, libAnioPublicacion, libISBN);
+    }
+
+    @Override
     public List<Libro> getAllLibros() throws SQLException {
         return libroRepository.getAllLibros();
     }

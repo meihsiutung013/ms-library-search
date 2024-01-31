@@ -22,6 +22,35 @@ public class LibroRepository implements ILibroRepository {
     }
 
     @Override
+    public List<Libro> searchLibros(String libNombre, Double libPrecioAlquiler, String libAnioPublicacion, String libISBN) throws SQLException {
+        List<Libro> libros = new ArrayList<>();
+        try (CallableStatement callStmt = connection.prepareCall("{call sp_SearchLibros(?, ?, ?, ?)}")) {
+            callStmt.setString(1, libNombre);
+            if (libPrecioAlquiler != null) {
+                callStmt.setDouble(2, libPrecioAlquiler);
+            } else {
+                callStmt.setNull(2, java.sql.Types.DOUBLE);
+            }
+            callStmt.setString(3, libAnioPublicacion);
+            callStmt.setString(4, libISBN);
+
+            ResultSet resultSet = callStmt.executeQuery();
+            while (resultSet.next()) {
+                Libro libro = new Libro();
+                libro.setLibId(resultSet.getInt("lib_id"));
+                libro.setAutId(resultSet.getInt("aut_id"));
+                libro.setCatId(resultSet.getInt("cat_id"));
+                libro.setLibNombre(resultSet.getString("lib_nombre"));
+                libro.setLibPrecioAlquiler(resultSet.getDouble("lib_precioalquiler"));
+                libro.setLibAnioPublicacion(resultSet.getString("lib_aniopb"));
+                libro.setLibISBN(resultSet.getString("lib_isbn"));
+                libros.add(libro);
+            }
+        }
+        return libros;
+    }
+
+    @Override
     public List<Libro> getAllLibros() throws SQLException {
         List<Libro> libros = new ArrayList<>();
         try (CallableStatement callStmt = connection.prepareCall("{call sp_GetAllLibros()}")) {

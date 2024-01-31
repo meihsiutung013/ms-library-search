@@ -22,9 +22,14 @@ public class LibroController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Libro>> getAllLibros() {
+    public ResponseEntity<List<Libro>> getAllLibros(
+            @RequestParam(required = false) String libNombre,
+            @RequestParam(required = false) Double libPrecioAlquiler,
+            @RequestParam(required = false) String libAnioPublicacion,
+            @RequestParam(required = false) String libISBN
+    ) {
         try {
-            List<Libro> libros = libroService.getAllLibros();
+            List<Libro> libros = libroService.searchLibros(libNombre, libPrecioAlquiler, libAnioPublicacion, libISBN);
             return ResponseEntity.ok(libros);
         } catch (SQLException e) {
             e.printStackTrace();
