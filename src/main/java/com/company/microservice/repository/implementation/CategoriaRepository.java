@@ -39,7 +39,7 @@ public class CategoriaRepository implements ICategoriaRepository {
     @Override
     public Categoria getCategoriaById(int id) throws SQLException{
         Categoria categoria = null;
-        try (CallableStatement callStmt = connection.prepareCall("{call sp_GetCategoriById(?)}")) {
+        try (CallableStatement callStmt = connection.prepareCall("{call sp_GetCategoriaById(?)}")) {
             callStmt.setInt(1, id);
             ResultSet resultSet = callStmt.executeQuery();
             if (resultSet.next()) {
