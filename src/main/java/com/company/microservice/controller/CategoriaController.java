@@ -2,8 +2,11 @@ package com.company.microservice.controller;
 
 import com.company.microservice.model.Autor;
 import com.company.microservice.model.Categoria;
-import com.company.microservice.service.interfaces.IAutorService;
 import com.company.microservice.service.interfaces.ICategoriaService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +15,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/categoria")
+@RequestMapping("/api/categorias")
+@Tag(name = "Categorías", description = "APIs para gestión de categorías")
 public class CategoriaController {
     private final ICategoriaService categoriaService;
 
@@ -22,6 +26,7 @@ public class CategoriaController {
     }
 
     @GetMapping
+    @Operation(summary = "Recupera una lista de categorías de libros.")
     public ResponseEntity<List<Categoria>> getAllCategorias() {
         try {
             List<Categoria> categorias = categoriaService.getAllCategorias();
@@ -33,6 +38,7 @@ public class CategoriaController {
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Recupera una categoría específica por ID.")
     public ResponseEntity<Categoria> getCategoriaById(@PathVariable int id) {
         try {
             Categoria categoria = categoriaService.getCategoriaById(id);
@@ -48,6 +54,12 @@ public class CategoriaController {
     }
 
     @PostMapping("")
+    @Operation(
+            summary = "Registra una nueva categoría.",
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    description = "Datos de la categoría.",
+                    required = true,
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = Categoria.class))))
     public ResponseEntity<String> insertCategoria(@RequestBody Categoria categoria) {
         try {
             categoriaService.insertCategoria(categoria.getCatNombre());
@@ -59,6 +71,12 @@ public class CategoriaController {
     }
 
     @PutMapping("/{id}")
+    @Operation(
+            summary = "Modifica todos los datos de una categoría.",
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    description = "Datos de la categoría a actualizar.",
+                    required = true,
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = Categoria.class))))
     public ResponseEntity<String> updateCategoria(@PathVariable int id, @RequestBody Categoria categoria) {
         try {
             categoriaService.updateCategoria(id, categoria.getCatNombre());
@@ -70,6 +88,7 @@ public class CategoriaController {
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "Elimina una categoría específica por ID.")
     public ResponseEntity<String> deleteCategoria(@PathVariable int id) {
         try {
             categoriaService.deleteCategoria(id);

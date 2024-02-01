@@ -2,16 +2,22 @@ package com.company.microservice.controller;
 
 import com.company.microservice.model.Autor;
 import com.company.microservice.service.interfaces.IAutorService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.sql.SQLException;
-import java.util.Collections;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/autores")
+@Tag(name = "Autores", description = "APIs para gestión de autores")
 public class AutorController {
 
     private final IAutorService autorService;
@@ -22,18 +28,26 @@ public class AutorController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Autor>> getAllAutores(@RequestParam(required = false) Integer id) {
+    @Operation(summary = "Recupera una lista de autores de libros.")
+    public ResponseEntity<List<Autor>> getAllAutores() {
         try {
-            if (id != null) {
-                Autor autor = autorService.getAutorById(id);
-                if (autor != null) {
-                    return ResponseEntity.ok(Collections.singletonList(autor));
-                } else {
-                    return ResponseEntity.notFound().build();
-                }
+            List<Autor> autores = autorService.getAllAutores();
+            return ResponseEntity.ok(autores);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).build();
+        }
+    }
+
+    @GetMapping("/{id}")
+    @Operation(summary = "Recupera un autor específico por ID.")
+    public ResponseEntity<Autor> getAutorById(@PathVariable int id) {
+        try {
+            Autor autor = autorService.getAutorById(id);
+            if(autor != null){
+                return ResponseEntity.ok(autor);
             } else {
-                List<Autor> autores = autorService.getAllAutores();
-                return ResponseEntity.ok(autores);
+                return ResponseEntity.notFound().build();
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -42,6 +56,12 @@ public class AutorController {
     }
 
     @PostMapping
+    @Operation(
+            summary = "Registra un nuevo autor.",
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    description = "Datos del autor.",
+                    required = true,
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = Autor.class))))
     public ResponseEntity<String> insertAutor(@RequestBody Autor autor) {
         try {
             autorService.insertAutor(autor.getNombre());
@@ -53,6 +73,12 @@ public class AutorController {
     }
 
     @PutMapping("/{id}")
+    @Operation(
+            summary = "Modifica todos los datos de un autor.",
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    description = "Datos del autor a actualizar.",
+                    required = true,
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = Autor.class))))
     public ResponseEntity<String> updateAutor(@PathVariable int id, @RequestBody Autor autor) {
         try {
             autorService.updateAutor(id, autor.getNombre());
@@ -64,6 +90,7 @@ public class AutorController {
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "Elimina un autor específico por ID.")
     public ResponseEntity<String> deleteAutor(@PathVariable int id) {
         try {
             autorService.deleteAutor(id);
