@@ -1,8 +1,6 @@
 package com.company.microservice.controller;
 
-import com.company.microservice.model.Autor;
 import com.company.microservice.model.Libro;
-import com.company.microservice.service.interfaces.IAutorService;
 import com.company.microservice.service.interfaces.ILibroService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;

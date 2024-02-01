@@ -1,6 +1,5 @@
 package com.company.microservice.controller;
 
-import com.company.microservice.model.Autor;
 import com.company.microservice.model.Categoria;
 import com.company.microservice.service.interfaces.ICategoriaService;
 import io.swagger.v3.oas.annotations.Operation;
